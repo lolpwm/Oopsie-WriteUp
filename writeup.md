@@ -77,16 +77,16 @@ La shell obtenida originalmente a través del servidor web no posee capacidades 
 
 Ejecutamos la siguiente secuencia de comandos dentro de la shell recibida para estabilizarla por completo:La shell obtenida originalmente a través del servidor web no posee capacidades interactivas avanzadas (no podemos autocompletar con Tab, usar las flechas del teclado, ni ejecutar comandos que requieran prompts de contraseña como su).
 
-# Paso 1: Forzar la creación de un pseudo-terminal (PTY) usando Python
+Paso 1: Forzar la creación de un pseudo-terminal (PTY) usando Python
 python3 -c 'import pty; pty.spawn("/bin/bash")'
 
-# Paso 2: Suspender la shell actual enviándola a segundo plano
-# Presionamos la combinación de teclas: CTRL + Z
+Paso 2: Suspender la shell actual enviándola a segundo plano
+Presionamos la combinación de teclas: CTRL + Z
 
-# Paso 3: Configurar nuestra terminal local en modo 'raw' para retransmitir comandos directamente
+Paso 3: Configurar nuestra terminal local en modo 'raw' para retransmitir comandos directamente
 stty raw -echo; fg
 
-# Paso 4: Resetear y reconfigurar las variables de entorno de la terminal
+Paso 4: Resetear y reconfigurar las variables de entorno de la terminal
 reset xterm
 export TERM=xterm
 export SHELL=bash
