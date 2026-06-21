@@ -15,7 +15,7 @@ Puerto 22 (SSH): Versión OpenSSH 7.6p1. No se identifican exploits públicos de
 
 Puerto 80 (HTTP): Servidor Apache 2.4.29. Indica la presencia de una aplicación web activa. Este será nuestro vector de entrada principal.
 
-Paso 2: Enumeración y Explotación Web
+## Paso 2: Enumeración y Explotación Web
 
 Navegamos a la dirección IP del objetivo (http://10.10.10.28) empleando un navegador. Se visualiza el sitio corporativo de "MegaCorp Auto".
 
@@ -46,7 +46,7 @@ Para escalar nuestros privilegios de forma vertical dentro de la aplicación, in
 
 Refrescamos la página web. El backend procesa los nuevos valores y nos reconoce como el usuario admin legítimo, desbloqueando un nuevo menú restringido en la barra superior llamado Upload.
 
-🔓 Paso 3: Acceso Inicial (File Upload & RCE)
+## 🔓 Paso 3: Acceso Inicial (File Upload & RCE)
 
 El menú Upload nos permite cargar archivos al servidor. Como la aplicación no valida en el backend el contenido real del archivo, las firmas (Magic Numbers) ni bloquea las extensiones de scripts ejecutables, podemos subir código malicioso para forzar una ejecución remota de comandos (RCE).
 1. Preparación de la Payload (PHP Reverse Shell)
@@ -70,7 +70,7 @@ A través de la inspección del código fuente o la enumeración de directorios 
 Antes de activar el script, abrimos un puerto de escucha en nuestra terminal local usando Netcat:
 nc -lvnp 4444
 
-🔄 Paso 4: Tratamiento de la TTY y Movimiento Lateral
+## 🔄 Paso 4: Tratamiento de la TTY y Movimiento Lateral
 
 La shell obtenida originalmente a través del servidor web no posee capacidades interactivas avanzadas (no podemos autocompletar con Tab, usar las flechas del teclado, ni ejecutar comandos que requieran prompts de contraseña como su).
 1. Estabilización de la Terminal (TTY Spoofing)
@@ -100,7 +100,7 @@ cat /var/www/html/cdn-cgi/login/db.php
 $conn = mysqli_connect("localhost", "robert", "M3g4C0rpM4n4g3m3nt!", "garage");
 ?>
 
-Paso 5: Escalada Local de Privilegios (Root)
+## Paso 5: Escalada Local de Privilegios (Root)
 Para comprometer la máquina en su totalidad, analizamos los vectores de elevación de privilegios locales. Buscamos archivos ejecutables que tengan configurado el bit SUID (Set User ID).
 
 find / -perm -4000 -type f 2>/dev/null
